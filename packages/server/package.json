@@ -64,6 +64,8 @@
     "chokidar-cli": "1.2.2",
     "chrome-har-capturer": "0.13.4",
     "coffee-coverage": "1.0.1",
+    "coffeeify": "3.0.1",
+    "coffeescript": "1.12.7",
     "console-table-printer": "1.0.0-beta12",
     "cors": "2.8.5",
     "electron-osx-sign": "0.4.11",
@@ -97,7 +99,7 @@
     "xvfb-maybe": "cypress-io/xvfb-maybe#c4a810c42d603949cd63b8cf245f6c239331d370"
   },
   "dependencies": {
-    "@cypress/browserify-preprocessor": "1.1.2",
+    "@cypress/browserify-preprocessor": "2.1.0",
     "@cypress/commit-info": "2.1.3",
     "@cypress/get-windows-proxy": "1.5.4",
     "@cypress/icons": "0.7.0",
