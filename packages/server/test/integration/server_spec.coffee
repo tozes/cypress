@@ -87,7 +87,7 @@ describe "Server", ->
                 @fileServer = @server._fileServer.address()
             ])
 
-          if @server
+          if @server?._server.listening
             Promise.join(
               httpsServer.stop()
               @server.close()

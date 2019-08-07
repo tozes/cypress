@@ -35,7 +35,7 @@ describe "lib/server", ->
       @server._fileServer = @fileServer
 
   afterEach ->
-    @server and @server.close()
+    @server?._server.listening and @server.close()
 
   context "#createExpressApp", ->
     beforeEach ->

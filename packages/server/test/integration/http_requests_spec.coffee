@@ -129,7 +129,7 @@ describe "Routes", ->
               @proxy = "http://localhost:" + port
           ])
 
-        if @server
+        if @server?._server.listening
           Promise.join(
             httpsServer.stop()
             @server.close()
