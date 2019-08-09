@@ -58,15 +58,15 @@ module.exports = (Commands, Cypress, cy, state, config) ->
           }
         }
 
-  getAndClear = (log, timeout) ->
+  getAndClear = (log, timeout, force) ->
     automateCookies("get:cookies", {}, log, timeout)
     .then (resp) =>
       ## bail early if we got no cookies!
       return resp if resp and resp.length is 0
 
       ## iterate over all of these and ensure none are whitelisted
-      ## or preserved
-      cookies = Cypress.Cookies.getClearableCookies(resp)
+      ## or preserved unless specifically forced to clear all
+      cookies = if force then resp else Cypress.Cookies.getClearableCookies(resp)
 
       automateCookies("clear:cookies", cookies, log, timeout)
 
@@ -208,6 +208,7 @@ module.exports = (Commands, Cypress, cy, state, config) ->
       _.defaults options, {
         log: true
         timeout: config("responseTimeout")
+        force: false
       }
 
       if options.log
@@ -228,7 +229,7 @@ module.exports = (Commands, Cypress, cy, state, config) ->
             obj
         })
 
-      getAndClear(options._log, options.timeout)
+      getAndClear(options._log, options.timeout, options.force)
       .then (resp) ->
         options.cookies = resp
 
@@ -239,3 +240,4 @@ module.exports = (Commands, Cypress, cy, state, config) ->
         err.message = err.message.replace("getCookies", "clearCookies")
         throw err
   })
+q

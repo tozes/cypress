@@ -691,6 +691,27 @@ describe "src/cy/commands/cookies", ->
           "clear:cookies"
         )
 
+    it "does not call clearableCookies when force is true", ->
+      Cypress.automation
+      .withArgs("get:cookies")
+      .resolves([
+        { name: "foo" },
+        { name: "bar" }
+      ])
+      .withArgs("clear:cookies", [
+        { name: "foo", domain: "localhost" }
+      ])
+      .resolves({
+        name: "foo"
+      })
+
+      cy.stub(Cypress.Cookies, "getClearableCookies")
+      .withArgs([{name: "foo"}, {name: "bar"}])
+      .returns([{name: "foo"}])
+
+      cy.clearCookies( { force: true } ).should("be.null").then ->
+        expect(Cypress.Cookies.getClearableCookies).not.to.be.called
+
     it "calls 'clear:cookies' only with clearableCookies", ->
       Cypress.automation
       .withArgs("get:cookies")
